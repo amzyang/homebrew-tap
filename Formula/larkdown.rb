@@ -5,13 +5,15 @@
 class Larkdown < Formula
   desc "飞书文档与 Markdown 双向转换 CLI（下载/上传/增量更新）"
   homepage "https://github.com/amzyang/larkdown"
-  version "3.13.0"
+  version "3.14.0"
   license "MIT"
+
+  depends_on "imagemagick"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.13.0/larkdown_3.13.0_darwin_amd64.tar.gz"
-      sha256 "b3a19d1bf8a335f642cda43cfefbbf07e943ae87924b182f1e6f0174084a8367"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.14.0/larkdown_3.14.0_darwin_amd64.tar.gz"
+      sha256 "277c324d8d3f1e0b638d5b76d9f93d0d92b58824596ccddf539a6abaa1664534"
 
       define_method(:install) do
         bin.install "larkdown"
@@ -19,8 +21,8 @@ class Larkdown < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.13.0/larkdown_3.13.0_darwin_arm64.tar.gz"
-      sha256 "64f8890988ca66f3de5556a3d5620f50101d7bbcf7b7ed314161e5b39fab4afe"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.14.0/larkdown_3.14.0_darwin_arm64.tar.gz"
+      sha256 "762ff3ae5b320b7a11a0acca218b56d4ec49c94f3729a1fdccee3116c0a84254"
 
       define_method(:install) do
         bin.install "larkdown"
@@ -31,27 +33,21 @@ class Larkdown < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.13.0/larkdown_3.13.0_linux_amd64.tar.gz"
-      sha256 "932d55a7bfcb6e6119b1c9906dc112a35f7d766a34877c85eeb2b62e5ec26360"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.14.0/larkdown_3.14.0_linux_amd64.tar.gz"
+      sha256 "0a9d514960ebbe6d4cd3a25eface8b0127fa06dbffd04d01da17839c0e2df77b"
       define_method(:install) do
         bin.install "larkdown"
         generate_completions_from_executable(bin/"larkdown", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.13.0/larkdown_3.13.0_linux_arm64.tar.gz"
-      sha256 "d3fedd84027ef5b0d8bedcf5dc1dd1d2fdf91b89fe3a0ecf7c3cfffd670ee23c"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.14.0/larkdown_3.14.0_linux_arm64.tar.gz"
+      sha256 "bb08df2f748fb31601329f478801284fa8762f9b82ff5859b4e752556ff548f9"
       define_method(:install) do
         bin.install "larkdown"
         generate_completions_from_executable(bin/"larkdown", "completion")
       end
     end
-  end
-
-  def caveats
-    <<~EOS
-      白板图片留白裁剪为可选功能，需额外安装 imagemagick：brew install imagemagick
-    EOS
   end
 
   test do
