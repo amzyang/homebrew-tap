@@ -6,13 +6,13 @@ require_relative "../lib/custom_download_strategy"
 class Gsql < Formula
   desc "公司 SRE 平台网页版只读 SQL 接口的命令行网关"
   homepage "https://github.com/amzyang/gsql"
-  version "0.3.3"
+  version "0.3.4"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/gsql/releases/download/v0.3.3/gsql_0.3.3_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "d423c9eebc84b53171e2147a2e29c18539dae8552a51212a6263576303db3853"
+      url "https://github.com/amzyang/gsql/releases/download/v0.3.4/gsql_0.3.4_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "8a884f87895e7c8d8dbb20eb6f77699164bb896f1b10d3ecdda60576f762ca44"
 
       define_method(:install) do
         bin.install "gsql"
@@ -20,8 +20,8 @@ class Gsql < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/gsql/releases/download/v0.3.3/gsql_0.3.3_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "6680872205dca040e03e35345d322da554089c8f088df566d253aa8606c1fe05"
+      url "https://github.com/amzyang/gsql/releases/download/v0.3.4/gsql_0.3.4_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "fe2126b89055f03c33cc79846956c1c3ab00e3bfc3331331a2a8e8602fb500ac"
 
       define_method(:install) do
         bin.install "gsql"
@@ -32,16 +32,16 @@ class Gsql < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gsql/releases/download/v0.3.3/gsql_0.3.3_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "7a614a87a5c7d6f14234105be3c5a53c9a3f1cbd4b727e40eeefa67958aba030"
+      url "https://github.com/amzyang/gsql/releases/download/v0.3.4/gsql_0.3.4_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "6b07f5b51471fadbff4893c91f6f460ee5beb0346c783931e108ef08e160e274"
       define_method(:install) do
         bin.install "gsql"
         generate_completions_from_executable(bin/"gsql", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gsql/releases/download/v0.3.3/gsql_0.3.3_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "8fa599066573ec7eddd9fe0147146f5997a70047a251dccf7942cf1154f8f4cd"
+      url "https://github.com/amzyang/gsql/releases/download/v0.3.4/gsql_0.3.4_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "919a9fe597e2e70a1cc8207d54f4408004a3bb724eb8e791e012e6811dae0e65"
       define_method(:install) do
         bin.install "gsql"
         generate_completions_from_executable(bin/"gsql", "completion")
