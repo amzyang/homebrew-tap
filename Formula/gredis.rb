@@ -9,7 +9,7 @@ class Gredis < Formula
   version "0.3.0"
   license "Proprietary"
 
-  depends_on "iredis"
+  depends_on "amzyang/tap/iredis"
 
   on_macos do
     if Hardware::CPU.intel?
