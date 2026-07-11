@@ -15,8 +15,7 @@ class Iredis < Formula
 
   def install
     virtualenv_create(libexec, "python3.14")
-    system libexec/"bin/pip", "install", "--upgrade", "pip"
-    system libexec/"bin/pip", "install", buildpath.to_s
+    system libexec/"bin/python", "-m", "pip", "install", buildpath.to_s
     bin.install_symlink libexec/"bin/iredis"
   end
 
