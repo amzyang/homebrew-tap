@@ -6,9 +6,9 @@ class Iredis < Formula
 
   desc "Terminal client for Redis with auto-completion and syntax highlighting"
   homepage "https://github.com/amzyang/iredis"
-  url "https://github.com/amzyang/iredis/archive/refs/tags/v2.2.1.tar.gz"
-  version "2.2.1"
-  sha256 "a619d4fa4772a1798f81a9b131c81c3b0d1a31f1e6e30e3cc427d6551296938e"
+  url "https://github.com/amzyang/iredis/archive/refs/tags/v2.2.2.tar.gz"
+  version "2.2.2"
+  sha256 "666230f7d07c13f74699ffd764f9c9568479a170a656b188b59ac84875b6ff96"
   license "BSD-3-Clause"
 
   depends_on "python@3.14"
