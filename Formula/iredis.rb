@@ -17,6 +17,7 @@ class Iredis < Formula
     virtualenv_create(libexec, "python3.14")
     system libexec/"bin/python", "-m", "pip", "install", buildpath.to_s
     bin.install_symlink libexec/"bin/iredis"
+    generate_completions_from_executable(bin/"iredis", shell_parameter_format: :click)
   end
 
   test do
