@@ -11,10 +11,10 @@ class Iredis < Formula
   sha256 "d23759a6c0c14f9f367542bb8ec4eac8f0e46a58efad2b3372478f6382072a7e"
   license "BSD-3-Clause"
 
-  depends_on "python@3.13"
+  depends_on "python@3.14"
 
   def install
-    virtualenv_create(libexec, "python3.13")
+    virtualenv_create(libexec, "python3.14")
     system libexec/"bin/pip", "install", "--upgrade", "pip"
     system libexec/"bin/pip", "install", buildpath.to_s
     bin.install_symlink libexec/"bin/iredis"
