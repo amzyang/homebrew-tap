@@ -6,15 +6,15 @@ require_relative "../lib/custom_download_strategy"
 class Gredis < Formula
   desc "公司 Redis Web 平台查询接口的命令行网关"
   homepage "https://github.com/amzyang/gredis"
-  version "0.4.3"
+  version "0.5.0"
   license "Proprietary"
 
   depends_on "amzyang/tap/iredis"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/gredis/releases/download/v0.4.3/gredis_0.4.3_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "8bff4a2e9a545c0a779b5f84e8ec6369752278e0e72007e5fc9a9e979603ef90"
+      url "https://github.com/amzyang/gredis/releases/download/v0.5.0/gredis_0.5.0_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "85b28a342ed31f98dcf879c7be74f3fd5bcfe21f4d969393bba95b0f2e3bc545"
 
       define_method(:install) do
         bin.install "gredis"
@@ -22,8 +22,8 @@ class Gredis < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/gredis/releases/download/v0.4.3/gredis_0.4.3_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "44541533446ce96003281a9dcc1aea2ff67faa8e98df45cff862f73523e3d023"
+      url "https://github.com/amzyang/gredis/releases/download/v0.5.0/gredis_0.5.0_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "4d55794e37fb52d21bf0564cd6024c8c517dd8d20f54729258c2c9cf90d83f8f"
 
       define_method(:install) do
         bin.install "gredis"
@@ -34,16 +34,16 @@ class Gredis < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gredis/releases/download/v0.4.3/gredis_0.4.3_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "a4f1c26045ab0d54d9be4dd0ed7c93c6226ab8e7c84224e6882797402d962617"
+      url "https://github.com/amzyang/gredis/releases/download/v0.5.0/gredis_0.5.0_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "3e3eb9832300a4ac79256d0887895d1cd625869c943a110ff9360b85cdc37a08"
       define_method(:install) do
         bin.install "gredis"
         generate_completions_from_executable(bin/"gredis", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gredis/releases/download/v0.4.3/gredis_0.4.3_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "45d417dcf4d636f271b6202b7f9bcd6793eaf0c1b59df64c406e02604b5016c0"
+      url "https://github.com/amzyang/gredis/releases/download/v0.5.0/gredis_0.5.0_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "5372f1d3a307a243e82dbc16f5ae96dbcbf305b5ab8d87bb797b86905576588a"
       define_method(:install) do
         bin.install "gredis"
         generate_completions_from_executable(bin/"gredis", "completion")
