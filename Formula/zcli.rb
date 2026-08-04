@@ -6,13 +6,13 @@ require_relative "../lib/custom_download_strategy"
 class Zcli < Formula
   desc "轻舟研发效能平台 TUI/CLI"
   homepage "https://github.com/amzyang/zcli"
-  version "0.1.96"
+  version "0.1.97"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/zcli/releases/download/v0.1.96/zcli_0.1.96_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "ccab49ab3e85b38a2bdceec8dc066fe8e2a7c29cdf6c747e9d9e56ef17a39b89"
+      url "https://github.com/amzyang/zcli/releases/download/v0.1.97/zcli_0.1.97_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "bc845593bc8e4810e4ee4f59bdb27895fca29a708f650da0c0ee855039259834"
 
       define_method(:install) do
         bin.install "zcli"
@@ -20,8 +20,8 @@ class Zcli < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/zcli/releases/download/v0.1.96/zcli_0.1.96_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "4930b629902c3e92bd3d6cffcfc9b2093b9774a8b80c03234b4e2e2c2696ff6e"
+      url "https://github.com/amzyang/zcli/releases/download/v0.1.97/zcli_0.1.97_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "e09c6b8edec589d014ec5324b063c4ca3f9307000c77f2dda91e257b3fdd1bbc"
 
       define_method(:install) do
         bin.install "zcli"
@@ -32,16 +32,16 @@ class Zcli < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/zcli/releases/download/v0.1.96/zcli_0.1.96_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "18e153c8e573b77fae4e42cff2bf3b5e8dc388f9c1d07bccbba538938361fbfc"
+      url "https://github.com/amzyang/zcli/releases/download/v0.1.97/zcli_0.1.97_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "69f12f60f3764bbedb056513d1a91bffb983165fcc566417e5a8cc2e8008a730"
       define_method(:install) do
         bin.install "zcli"
         generate_completions_from_executable(bin/"zcli", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/zcli/releases/download/v0.1.96/zcli_0.1.96_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "bc510543bb49bc10b89b9ad39411e75fac34909a3caba80e70f6c01f652cf96b"
+      url "https://github.com/amzyang/zcli/releases/download/v0.1.97/zcli_0.1.97_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "aa90a38caa322312d553acf481f0587d161662b0c008571872b4e7ff752e4ce6"
       define_method(:install) do
         bin.install "zcli"
         generate_completions_from_executable(bin/"zcli", "completion")
