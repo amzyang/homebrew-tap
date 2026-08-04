@@ -6,12 +6,12 @@ require_relative "../lib/custom_download_strategy"
 class Gauth < Formula
   desc "高途 all-in-one 授权工具：用 CAS 登录态换取业务站点的会话 cookie"
   homepage "https://github.com/amzyang/gauth"
-  version "0.1.1"
+  version "0.1.2"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/gauth/releases/download/v0.1.1/gauth_0.1.1_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "2a38db44cef856968f85124f8c64e8e9a1b803abf2b7931ca0129343dc2a4024"
+      url "https://github.com/amzyang/gauth/releases/download/v0.1.2/gauth_0.1.2_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "78d1f8cae0f2a77bf063a107778581422d4d3d182be2528082a02709f9081114"
 
       define_method(:install) do
         bin.install "gauth"
@@ -19,8 +19,8 @@ class Gauth < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/gauth/releases/download/v0.1.1/gauth_0.1.1_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "a89c8c4be8a317eaf54f387cd68b873124818bdcd99ef56bb930df4458ee62d6"
+      url "https://github.com/amzyang/gauth/releases/download/v0.1.2/gauth_0.1.2_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "90a768f26d46afcd1edc0eaf8ede0f0e652ad80c883d20cc382953ee584eb4a7"
 
       define_method(:install) do
         bin.install "gauth"
@@ -31,16 +31,16 @@ class Gauth < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gauth/releases/download/v0.1.1/gauth_0.1.1_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "7b9b542e403119deeae4cb1738a3db92525da7d53f845ac1b98b28aa5420092a"
+      url "https://github.com/amzyang/gauth/releases/download/v0.1.2/gauth_0.1.2_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "dff02393781f074504d29e3921c8be04450bd16999afd7c10247d734fb89f0f8"
       define_method(:install) do
         bin.install "gauth"
         generate_completions_from_executable(bin/"gauth", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gauth/releases/download/v0.1.1/gauth_0.1.1_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "a41093fb08d5bc6187e14a547a57309c837721a60fb1c82934c546b7e39b48d4"
+      url "https://github.com/amzyang/gauth/releases/download/v0.1.2/gauth_0.1.2_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "0f078746a37ec799db9bf2a452d6218488cb24c613bff2a6ecedcf735862dc60"
       define_method(:install) do
         bin.install "gauth"
         generate_completions_from_executable(bin/"gauth", "completion")
