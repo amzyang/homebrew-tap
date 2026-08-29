@@ -5,12 +5,12 @@
 class Room < Formula
   desc "Meeting room booking automation CLI for Feishu (Lark)"
   homepage "https://github.com/amzyang/room"
-  version "0.6.0"
+  version "0.6.1"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/room/releases/download/v0.6.0/room_0.6.0_darwin_amd64.tar.gz"
-      sha256 "a529e04fe9f76a6fea69c8faeef8109ce8b659fdc76d2398d37d4866736311b1"
+      url "https://github.com/amzyang/room/releases/download/v0.6.1/room_0.6.1_darwin_amd64.tar.gz"
+      sha256 "ddeb1b4937b9fcda366e84b1df95240c09c9f448254a907dd5a2446ed092f090"
 
       define_method(:install) do
         bin.install "room"
@@ -18,8 +18,8 @@ class Room < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/room/releases/download/v0.6.0/room_0.6.0_darwin_arm64.tar.gz"
-      sha256 "f198d78363ec867823c62d941d247909fc553a3d9241dd1c29e42616ef5dd70f"
+      url "https://github.com/amzyang/room/releases/download/v0.6.1/room_0.6.1_darwin_arm64.tar.gz"
+      sha256 "535190f125f86ad1c7527a6a0ca33ba5bc21070dcbda473e8811c64f46731ca9"
 
       define_method(:install) do
         bin.install "room"
@@ -30,16 +30,16 @@ class Room < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/room/releases/download/v0.6.0/room_0.6.0_linux_amd64.tar.gz"
-      sha256 "292da2d82bfeb7782198b3865400a7277f38940fbb937ad55edf0006f51c4600"
+      url "https://github.com/amzyang/room/releases/download/v0.6.1/room_0.6.1_linux_amd64.tar.gz"
+      sha256 "f7afae7b0b816a382c80d750b9ed65e5e658b50ffeef2c0d4b18b5cc05fa1c1c"
       define_method(:install) do
         bin.install "room"
         generate_completions_from_executable(bin/"room", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/room/releases/download/v0.6.0/room_0.6.0_linux_arm64.tar.gz"
-      sha256 "30f4d8672ee748e10e2f79ebc55a09e850c50849b144181ed344cfc3508cfa10"
+      url "https://github.com/amzyang/room/releases/download/v0.6.1/room_0.6.1_linux_arm64.tar.gz"
+      sha256 "2c043e44390e51a427c368a3bc311fb8080b7ffb175ec39831943856fed45d79"
       define_method(:install) do
         bin.install "room"
         generate_completions_from_executable(bin/"room", "completion")
