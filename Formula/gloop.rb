@@ -6,13 +6,13 @@ require_relative "../lib/custom_download_strategy"
 class Gloop < Formula
   desc "CozeLoop 私有化部署命令行工具"
   homepage "https://github.com/amzyang/gloop"
-  version "0.1.1"
+  version "0.1.2"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/gloop/releases/download/v0.1.1/gloop_0.1.1_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "1dc7645b9855a3ebf40125c6bc9b191673fec8d180f9f72a871c92a0e8537fd2"
+      url "https://github.com/amzyang/gloop/releases/download/v0.1.2/gloop_0.1.2_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "78e628958619a42c3eda6d296cceafccb93dab7284fce01fa8cb27488ac0b5a0"
 
       define_method(:install) do
         bin.install "gloop"
@@ -20,8 +20,8 @@ class Gloop < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/gloop/releases/download/v0.1.1/gloop_0.1.1_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "122aaabb9347162c04b2ec5164fdfef6345c0150e8e487f07769b0c351a62b84"
+      url "https://github.com/amzyang/gloop/releases/download/v0.1.2/gloop_0.1.2_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "5405331b529f80f888649345bee6155b93fda4a051b6e5dbdc40159d599d3279"
 
       define_method(:install) do
         bin.install "gloop"
@@ -32,16 +32,16 @@ class Gloop < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gloop/releases/download/v0.1.1/gloop_0.1.1_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "84ac47242f5b9d7ad84ba45b83bce8ff95f05d7b4c9751f4bcc76dacba74fd73"
+      url "https://github.com/amzyang/gloop/releases/download/v0.1.2/gloop_0.1.2_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "f61ba063f30d8380de738e6aa5c2694c6507215993aa80a67499818c0b20ef99"
       define_method(:install) do
         bin.install "gloop"
         generate_completions_from_executable(bin/"gloop", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/gloop/releases/download/v0.1.1/gloop_0.1.1_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "5a8e8357c5c6f454bab85c3a2d7fe0c065843c68166818f935658e989ca85a2d"
+      url "https://github.com/amzyang/gloop/releases/download/v0.1.2/gloop_0.1.2_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "d2ae65680f37ff9a20fec6539f29832de7464d8bca0a54fa427852d9c1bc4512"
       define_method(:install) do
         bin.install "gloop"
         generate_completions_from_executable(bin/"gloop", "completion")
