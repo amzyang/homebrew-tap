@@ -12,7 +12,6 @@ set -euo pipefail
 
 TAP_DIR=$(cd "$(dirname "$0")/.." && pwd)
 FORMULA="$TAP_DIR/Formula/kitty.rb"
-SLANG_RELEASES="https://github.com/shader-slang/slang/releases/download"
 
 usage() { sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
 
@@ -62,14 +61,28 @@ EOF
   exit 1
 fi
 
-# 3. slang 版本跟随上游 bypy/sources.json
-slang_ver=$(python3 -c "import json,sys; print(next(x['name'].split()[1] for x in json.load(open(sys.argv[1])) if x['name'].startswith('slang ')))" "$work/src/bypy/sources.json")
-cur_slang=$(sed -n 's|.*/slang/releases/download/v\([^/]*\)/.*|\1|p' "$FORMULA" | head -1)
+# 3. slang 跟随上游 bypy/sources.json：版本号与仓库地址都从里面取。
+#    kitty 官方是从该仓库源码自建 slang，没有可钉版本的预编译产物（dev.sh 的依赖包是滚动更新、无版本号，
+#    sha256 会漂），所以预编译包取同一仓库 GitHub Releases 里的 macOS 资产，并先 HEAD 确认存在。
+read -r slang_ver slang_repo < <(python3 - "$work/src/bypy/sources.json" <<'PY'
+import json, re, sys
+entry = next(x for x in json.load(open(sys.argv[1])) if x['name'].startswith('slang '))
+url = entry['unix']['urls'][0]
+m = re.search(r'github\.com/([^/]+/[^/.]+)', url)
+if not m:
+    sys.exit(f'sources.json 的 slang 地址不是 GitHub 仓库: {url}')
+print(entry['name'].split()[1], m.group(1))
+PY
+)
+slang_releases="https://github.com/$slang_repo/releases/download"
+cur_slang=$(sed -n 's|.*/releases/download/v\([^/]*\)/slang-.*|\1|p' "$FORMULA" | head -1)
 declare -A slang_sha
 if [ "$slang_ver" != "$cur_slang" ]; then
-  echo "==> slang $cur_slang -> $slang_ver"
+  echo "==> slang $cur_slang -> $slang_ver ($slang_repo)"
   for arch in aarch64 x86_64; do
-    curl -fsSL -o "$work/slang-$arch.tar.gz" "$SLANG_RELEASES/v$slang_ver/slang-$slang_ver-macos-$arch.tar.gz"
+    asset="$slang_releases/v$slang_ver/slang-$slang_ver-macos-$arch.tar.gz"
+    curl -fsIL -o /dev/null "$asset" || { echo "slang 预编译包不存在: $asset，请到 https://github.com/$slang_repo/releases 核对资产命名" >&2; exit 1; }
+    curl -fsSL -o "$work/slang-$arch.tar.gz" "$asset"
     slang_sha[$arch]=$(shasum -a 256 "$work/slang-$arch.tar.gz" | cut -d' ' -f1)
   done
 fi
@@ -96,9 +109,9 @@ new_version="$version-amz.$n"
 
 # 5. 改写 formula
 python3 - "$FORMULA" "$work/kitty.rb" "$work/kitty.patch" "$url" "$sha" "$new_version" "$slang_ver" \
-  "${slang_sha[aarch64]:-}" "${slang_sha[x86_64]:-}" "$nerd_pinned" "$nerd_sha" <<'EOF'
+  "${slang_sha[aarch64]:-}" "${slang_sha[x86_64]:-}" "$nerd_pinned" "$nerd_sha" "$slang_releases" <<'EOF'
 import re, sys
-src, dst, patch, url, sha, version, slang_ver, sha_arm, sha_x86, nerd_url, nerd_sha = sys.argv[1:]
+src, dst, patch, url, sha, version, slang_ver, sha_arm, sha_x86, nerd_url, nerd_sha, slang_releases = sys.argv[1:]
 head = open(src).read().split('\n__END__\n')[0]
 head = re.sub(r'^  url ".*"$', f'  url "{url}"', head, count=1, flags=re.M)
 head = re.sub(r'^  sha256 "[0-9a-f]{64}"$', f'  sha256 "{sha}"', head, count=1, flags=re.M)
@@ -106,8 +119,8 @@ head = re.sub(r'^  version ".*"$', f'  version "{version}"', head, count=1, flag
 if sha_arm:
     for arch, digest in (('aarch64', sha_arm), ('x86_64', sha_x86)):
         head = re.sub(
-            r'(url "https://github.com/shader-slang/slang/releases/download/)v[^/]+/slang-[^-]+-macos-' + arch + r'\.tar\.gz"\n(\s+)sha256 "[0-9a-f]{64}"',
-            lambda m: f'{m.group(1)}v{slang_ver}/slang-{slang_ver}-macos-{arch}.tar.gz"\n{m.group(2)}sha256 "{digest}"',
+            r'(url ")https://github\.com/[^"]+/releases/download/v[^/]+/slang-[^-]+-macos-' + arch + r'\.tar\.gz"\n(\s+)sha256 "[0-9a-f]{64}"',
+            lambda m: f'{m.group(1)}{slang_releases}/v{slang_ver}/slang-{slang_ver}-macos-{arch}.tar.gz"\n{m.group(2)}sha256 "{digest}"',
             head, count=1)
 if nerd_sha:
     head = re.sub(
