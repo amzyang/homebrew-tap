@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 发布新版 kitty formula：取上游发布包、校验补丁仍可应用、同步 slang 版本、改写 formula、本地构建、提交推送。
+# 发布新版 kitty formula：取上游发布包、校验补丁仍可应用、同步 slang 与 Nerd Font 版本、改写 formula、本地构建、提交推送。
 #
 # 用法: scripts/bump-kitty.sh <上游版本> [选项]
 #   --patch FILE   用该文件替换 formula 末尾内嵌的补丁（补丁与上游冲突后重新生成时用）
@@ -74,6 +74,19 @@ if [ "$slang_ver" != "$cur_slang" ]; then
   done
 fi
 
+# 3b. Nerd Font 跟随 kitty 打包脚本：bypy/devenv.go 的 NERD_URL 指向 releases/latest，
+#     发布时解析一次重定向把 latest 钉成具体 tag，与 kitty 官方包同步而 formula 仍可校验 sha256。
+nerd_url=$(sed -n 's/.*NERD_URL *= *"\([^"]*\)".*/\1/p' "$work/src/bypy/devenv.go" | head -1)
+nerd_pinned=$(curl -sI "$nerd_url" | sed -n 's/^[Ll]ocation: *//p' | tr -d '\r' | head -1)
+nerd_tag=$(echo "$nerd_pinned" | sed -n 's|.*/download/\([^/]*\)/.*|\1|p')
+cur_nerd=$(sed -n 's|.*/nerd-fonts/releases/download/\([^/]*\)/.*|\1|p' "$FORMULA" | head -1)
+nerd_sha=""
+if [ -n "$nerd_tag" ] && [ "$nerd_tag" != "$cur_nerd" ]; then
+  echo "==> Nerd Font $cur_nerd -> $nerd_tag"
+  curl -fsSL -o "$work/nerd.tar.xz" "$nerd_pinned"
+  nerd_sha=$(shasum -a 256 "$work/nerd.tar.xz" | cut -d' ' -f1)
+fi
+
 # 4. 版本号：上游同版本则递增 -amz.N
 cur_version=$(sed -n 's/^  version "\(.*\)"/\1/p' "$FORMULA")
 cur_upstream=${cur_version%-amz.*}
@@ -83,9 +96,9 @@ new_version="$version-amz.$n"
 
 # 5. 改写 formula
 python3 - "$FORMULA" "$work/kitty.rb" "$work/kitty.patch" "$url" "$sha" "$new_version" "$slang_ver" \
-  "${slang_sha[aarch64]:-}" "${slang_sha[x86_64]:-}" <<'EOF'
+  "${slang_sha[aarch64]:-}" "${slang_sha[x86_64]:-}" "$nerd_pinned" "$nerd_sha" <<'EOF'
 import re, sys
-src, dst, patch, url, sha, version, slang_ver, sha_arm, sha_x86 = sys.argv[1:]
+src, dst, patch, url, sha, version, slang_ver, sha_arm, sha_x86, nerd_url, nerd_sha = sys.argv[1:]
 head = open(src).read().split('\n__END__\n')[0]
 head = re.sub(r'^  url ".*"$', f'  url "{url}"', head, count=1, flags=re.M)
 head = re.sub(r'^  sha256 "[0-9a-f]{64}"$', f'  sha256 "{sha}"', head, count=1, flags=re.M)
@@ -96,6 +109,11 @@ if sha_arm:
             r'(url "https://github.com/shader-slang/slang/releases/download/)v[^/]+/slang-[^-]+-macos-' + arch + r'\.tar\.gz"\n(\s+)sha256 "[0-9a-f]{64}"',
             lambda m: f'{m.group(1)}v{slang_ver}/slang-{slang_ver}-macos-{arch}.tar.gz"\n{m.group(2)}sha256 "{digest}"',
             head, count=1)
+if nerd_sha:
+    head = re.sub(
+        r'(url ")https://github\.com/ryanoasis/nerd-fonts/releases/download/[^"]+"\n(\s+)sha256 "[0-9a-f]{64}"',
+        lambda m: f'{m.group(1)}{nerd_url}"\n{m.group(2)}sha256 "{nerd_sha}"',
+        head, count=1)
 open(dst, 'w').write(head + '\n__END__\n' + open(patch).read())
 EOF
 
