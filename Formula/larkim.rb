@@ -5,13 +5,13 @@
 class Larkim < Formula
   desc "Feishu/Lark IM synced to local SQLite: background daemon, CLI and TUI"
   homepage "https://github.com/amzyang/larkim"
-  version "0.22.15"
+  version "0.22.14"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/larkim/releases/download/v0.22.15/larkim_0.22.15_darwin_amd64.tar.gz"
-      sha256 "1e354fe01aee45e7c70b184d0161e4417661b309a383cb3722ffe8a9e1c959a4"
+      url "https://github.com/amzyang/larkim/releases/download/v0.22.14/larkim_0.22.14_darwin_amd64.tar.gz"
+      sha256 "7015597cb3aa3054b8a5932c22484df9a19a9747b147dcc84eaf5bef5b5e0d67"
 
       define_method(:install) do
         bin.install "larkim"
@@ -19,8 +19,8 @@ class Larkim < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/larkim/releases/download/v0.22.15/larkim_0.22.15_darwin_arm64.tar.gz"
-      sha256 "4680f8984ef1814c10c2bcd715cf62d936aa9f190edbd3cf9d2ca6bd2621ddd7"
+      url "https://github.com/amzyang/larkim/releases/download/v0.22.14/larkim_0.22.14_darwin_arm64.tar.gz"
+      sha256 "955ad67026d54b50194f08333a8b2600e049ce887eb968db9b2fc5abd9dce9c5"
 
       define_method(:install) do
         bin.install "larkim"
@@ -31,16 +31,16 @@ class Larkim < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkim/releases/download/v0.22.15/larkim_0.22.15_linux_amd64.tar.gz"
-      sha256 "7f7aa8c5dc924f09522e6bcb5f7b2d6567da06a17d43be1593e14acd63ec6e9a"
+      url "https://github.com/amzyang/larkim/releases/download/v0.22.14/larkim_0.22.14_linux_amd64.tar.gz"
+      sha256 "5350b0211d0e3f5efb4c5b28140e8d9555b58f6d4034ae067292d6e6cf3b051c"
       define_method(:install) do
         bin.install "larkim"
         generate_completions_from_executable(bin/"larkim", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkim/releases/download/v0.22.15/larkim_0.22.15_linux_arm64.tar.gz"
-      sha256 "5e4c768632db86063769cd07f3cdc09c0e070cdef91d2c99597fb89b58457129"
+      url "https://github.com/amzyang/larkim/releases/download/v0.22.14/larkim_0.22.14_linux_arm64.tar.gz"
+      sha256 "9168d4205a8e30458a8eb464263c6224f752675b8063de991960052adf68ebc6"
       define_method(:install) do
         bin.install "larkim"
         generate_completions_from_executable(bin/"larkim", "completion")
