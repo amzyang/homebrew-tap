@@ -6,13 +6,13 @@ require_relative "../lib/custom_download_strategy"
 class Flash < Formula
   desc "Flash 发布系统 CLI（Jenkins 构建、发布单、日志）"
   homepage "https://github.com/amzyang/flash"
-  version "0.1.0"
+  version "0.2.0"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/flash/releases/download/v0.1.0/flash_0.1.0_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "4c305cbc51b6aab20a7c9e691ceb83188ffff34b72c982f71529e2aef365c689"
+      url "https://github.com/amzyang/flash/releases/download/v0.2.0/flash_0.2.0_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "a80838f182506f5766827db39ef61dd126fb01ea627ad5afbb1f3ac7e9569c84"
 
       define_method(:install) do
         bin.install "flash"
@@ -20,8 +20,8 @@ class Flash < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/flash/releases/download/v0.1.0/flash_0.1.0_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "b7d8bd4cf127e53351b7503806e1c35976abff8a05bd6e9b4c99d2c71c312e5c"
+      url "https://github.com/amzyang/flash/releases/download/v0.2.0/flash_0.2.0_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "14ac54434ba39d52430a860ac2181a80445548a26264bc1af8660d6e23e96ae4"
 
       define_method(:install) do
         bin.install "flash"
@@ -32,16 +32,16 @@ class Flash < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/flash/releases/download/v0.1.0/flash_0.1.0_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "f86cd7fd4f12af8a9f57324377f4b39171634746c1e77dccba1d7e8c8c101e1e"
+      url "https://github.com/amzyang/flash/releases/download/v0.2.0/flash_0.2.0_linux_amd64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "221d27f0920f47c15d6687b57b509ff987090414c6adab2407a5e2c4cc74f5e0"
       define_method(:install) do
         bin.install "flash"
         generate_completions_from_executable(bin/"flash", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/flash/releases/download/v0.1.0/flash_0.1.0_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-      sha256 "838a485008db181a62f739e327ec072d31a2d1a2c2af74d00fb78df9e8d0a48e"
+      url "https://github.com/amzyang/flash/releases/download/v0.2.0/flash_0.2.0_linux_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+      sha256 "cded25a1337fb92a4dadb34d0b6c046cd08d0759bfc7745df50b0ed114a39905"
       define_method(:install) do
         bin.install "flash"
         generate_completions_from_executable(bin/"flash", "completion")
