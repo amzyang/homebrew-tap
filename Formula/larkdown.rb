@@ -5,15 +5,15 @@
 class Larkdown < Formula
   desc "飞书文档与 Markdown 双向转换 CLI（下载/上传/增量更新）"
   homepage "https://github.com/amzyang/larkdown"
-  version "3.26.7"
+  version "3.26.8"
   license "MIT"
 
   depends_on "imagemagick"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.26.7/larkdown_3.26.7_darwin_amd64.tar.gz"
-      sha256 "61f27ef02d6e96b8ffb7ce8ab64fd4b45f15823dc32ab818daa1bf3dd1375d90"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.26.8/larkdown_3.26.8_darwin_amd64.tar.gz"
+      sha256 "0620351a2f0fb23ccc63a80da9cfc1c3009a9f0e2961577c439d7240cb8c0409"
 
       define_method(:install) do
         bin.install "larkdown"
@@ -21,8 +21,8 @@ class Larkdown < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.26.7/larkdown_3.26.7_darwin_arm64.tar.gz"
-      sha256 "f354ce5a728d8ba6d9a393bcc1e856026f84258314c44d3b8f1b774ba9a4d03e"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.26.8/larkdown_3.26.8_darwin_arm64.tar.gz"
+      sha256 "1ff567c3b22559573ffe242c7a4cce437620098687ccf139edf1d7b0b378ed00"
 
       define_method(:install) do
         bin.install "larkdown"
@@ -33,16 +33,16 @@ class Larkdown < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.26.7/larkdown_3.26.7_linux_amd64.tar.gz"
-      sha256 "e8d90bc167609142d3e5af6b4861d6975d923fd181499950a237945d2a3905e2"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.26.8/larkdown_3.26.8_linux_amd64.tar.gz"
+      sha256 "348f819d9f0506c4ff9343039fc302278d40780d7bee9fbabe8e4e95d31e56a9"
       define_method(:install) do
         bin.install "larkdown"
         generate_completions_from_executable(bin/"larkdown", "completion")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/amzyang/larkdown/releases/download/v3.26.7/larkdown_3.26.7_linux_arm64.tar.gz"
-      sha256 "4a887469cf20197f7eeed670639787542afdf8e42c69d439d93c3f96cf998172"
+      url "https://github.com/amzyang/larkdown/releases/download/v3.26.8/larkdown_3.26.8_linux_arm64.tar.gz"
+      sha256 "cb5b7b45a8939aa20ba8b71bda456f446a7fc671c677e4370ff8d32dd65646fa"
       define_method(:install) do
         bin.install "larkdown"
         generate_completions_from_executable(bin/"larkdown", "completion")
